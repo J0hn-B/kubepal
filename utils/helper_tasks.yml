@@ -1,0 +1,20 @@
+version: "3"
+
+tasks:
+  clean:
+    desc: "Clean up /.kube/config"
+    cmds:
+      - :> $KUBECONFIG
+
+  temp_pod:
+    desc: "Create a temporary interactive pod, install some tools on it, and experiment "
+    cmds:
+      - kubectl run -i --tty tester --image debian
+
+  connect:
+    desc: "Get a shell to a running container"
+    cmds:
+      - kubectl exec --stdin --tty {{.POD_NAME}} -- /bin/bash
+    vars:
+      POD_NAME:
+        sh: kubectl get po | grep $(yq '.metadata.name' text/deploy.yml) | awk '{print $1}'
