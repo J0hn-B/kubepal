@@ -18,3 +18,18 @@ tasks:
     vars:
       POD_NAME:
         sh: kubectl get po | grep $(yq '.metadata.name' text/deploy.yml) | awk '{print $1}'
+
+  test:
+    desc: "Go template functions and examples using Powershell and Linux"
+    cmds:
+      - '{{if eq OS "windows"}}powershell "Get-ComputerInfo | select WindowsProductName"{{else}}cat /etc/os-release{{end}}'
+
+      - '{{ if and (eq OS "windows") (eq (env "KUBECONFIG") "") }} echo "OS is windows and KUBECONFIG var is empty" {{end}}'
+    silent: true
+
+  start:
+    desc: "Go template if statement"
+    cmds:
+      # Run a command if OS is windows
+      - '{{if eq OS "windows"}}powershell Start-Process "\"C:\ProgramData\Microsoft\Windows\Start Menu\Docker Desktop"\"{{end}}'
+    silent: true

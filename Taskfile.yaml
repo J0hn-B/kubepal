@@ -1,20 +1,33 @@
+## #  Description: Taskfile for k3d cluster
+
+## # In the tasks below, a mix of shell commands combined with Go templates is used as a way to make the tasks more dynamic
+## # and record the go template syntax for future use.
+
 version: "3"
 
 env:
   CLUSTER_NAME: pattern
-  KUBE: export KUBECONFIG=/mnt/c/Users/devops/.kube/config
+  KUBE: export KUBECONFIG=/mnt/c/Users/{{.USER}}/.kube/config
 
+# Include the helper tasks
 includes:
-  # Include the helper tasks
-  helper_tasks: utils/helper_tasks.yml
+  run: utils/helper_tasks.yml
 
 tasks:
   create:
     desc: |
-      Create cluster
-      Set Kubeconfig env var manually ==> export KUBECONFIG=/mnt/c/Users/devops/.kube/config
+      Create and access a k3d cluster.
+
+      If operating on WSL, the KUBECONFIG env var will point to the Windows host.
+
+      {{ if and (eq OS "windows") (eq (env "KUBECONFIG") "") }}Kubeconfig path: {{.USERPROFILE}}\.kube\config{{end}}
+
     cmds:
-      - '[ -z "$KUBECONFIG" ] && echo "Set KUBECONFIG env var ==> {{.KUBE}}" && exit 1 || k3d cluster create {{.CLUSTER_NAME}} --agents 2'
+      # If KUBECONFIG env var is not set, set it to point to the Windows host
+      - '{{if eq OS "linux"}}[ -z "$KUBECONFIG" ] && echo "Set KUBECONFIG env var ==> {{.KUBE}}" && exit 1 || k3d cluster create {{.CLUSTER_NAME}} --agents 2{{end}}'
+      # is host is Windows, create cluster
+      - '{{if eq OS "windows"}}k3d cluster create {{.CLUSTER_NAME}} --agents 2{{end}}'
+
     status:
       - k3d cluster list | grep {{.CLUSTER_NAME}} # If cluster exists, skip the task
     silent: true
@@ -30,7 +43,3 @@ tasks:
     cmds:
       - k3d cluster delete {{.CLUSTER_NAME}}
     silent: true
-
-  test:
-    cmds:
-      - echo '{{if eq OS "windows"}}{{OS}}{{else}}{{OS}}{{end}}'
