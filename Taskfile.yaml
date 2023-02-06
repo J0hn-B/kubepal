@@ -33,13 +33,16 @@ tasks:
     silent: true
 
   deploy:
-    desc: "Deploy the configs in text/"
+    desc: "Bootstrap cluster and deploy apps"
     cmds:
       - task: create
-      - kubectl apply -f kube/
+      - terraform -chdir=kube/bootstrap init
+      - terraform -chdir=kube/bootstrap apply -auto-approve
 
   delete:
     desc: "Delete cluster"
     cmds:
       - k3d cluster delete {{.CLUSTER_NAME}}
+      - rm -rf kube/bootstrap/.terraform
+      - rm -rf kube/bootstrap/.terraform.lock.hcl
     silent: true
