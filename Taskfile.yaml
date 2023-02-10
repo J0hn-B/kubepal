@@ -32,11 +32,18 @@ tasks:
       - k3d cluster list | grep {{.CLUSTER_NAME}} # If cluster exists, skip the task
     silent: true
 
+  tf_init:
+    desc: "Initialize terraform"
+    cmds:
+      - terraform -chdir=kube/bootstrap init
+    status: # If terraform is initialized, skip the task
+      - terraform -chdir=kube/bootstrap state list
+
   deploy:
     desc: "Bootstrap cluster and deploy apps"
     cmds:
       - task: create
-      - terraform -chdir=kube/bootstrap init
+      - task: tf_init
       - terraform -chdir=kube/bootstrap apply -auto-approve
 
   delete:
