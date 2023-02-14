@@ -33,3 +33,10 @@ tasks:
       # Run a command if OS is windows
       - '{{if eq OS "windows"}}powershell Start-Process "\"C:\ProgramData\Microsoft\Windows\Start Menu\Docker Desktop"\"{{end}}'
     silent: true
+
+  path:
+    desc: "Convert a string from / path format to \\"
+    cmds:
+      # Run a command if OS is windows
+      - echo '{{fromSlash "kube/bootstrap/"}}'
+    silent: true
