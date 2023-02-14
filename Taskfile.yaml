@@ -22,14 +22,16 @@ tasks:
 
       {{ if and (eq OS "windows") (eq (env "KUBECONFIG") "") }}Kubeconfig path: {{.USERPROFILE}}\.kube\config{{end}}
 
+      {{ if and (eq OS "linux") (ne (env "KUBECONFIG") "") }}Kubeconfig path: {{(env "KUBECONFIG")}}{{end}}
+
     cmds:
       # If KUBECONFIG env var is not set, set it to point to the Windows host
       - '{{if eq OS "linux"}}[ -z "$KUBECONFIG" ] && echo "Set KUBECONFIG env var ==> {{.KUBE}}" && exit 1 || k3d cluster create {{.CLUSTER_NAME}} --agents 2{{end}}'
-      # is host is Windows, create cluster
+      # If host is Windows, create cluster
       - '{{if eq OS "windows"}}k3d cluster create {{.CLUSTER_NAME}} --agents 2{{end}}'
 
     status:
-      - k3d cluster list | grep {{.CLUSTER_NAME}} # If cluster exists, skip the task
+      - k3d cluster list {{.CLUSTER_NAME}} # If cluster exists, skip the task
     silent: true
 
   tf_init:
