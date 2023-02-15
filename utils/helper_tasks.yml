@@ -20,7 +20,7 @@ tasks:
         sh: kubectl get po | grep $(yq '.metadata.name' text/deploy.yml) | awk '{print $1}'
 
   test:
-    desc: "Go template functions and examples using Powershell and Linux"
+    desc: "Go template functions and examples using Powershell and Bash"
     cmds:
       - '{{if eq OS "windows"}}powershell "Get-ComputerInfo | select WindowsProductName"{{else}}cat /etc/os-release{{end}}'
 

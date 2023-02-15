@@ -46,7 +46,7 @@ tasks:
     cmds:
       - task: create
       - task: tf_init
-      - terraform -chdir=kube/bootstrap apply -auto-approve
+      - terraform -chdir='{{fromSlash "kube/bootstrap"}}' apply -auto-approve
 
   delete:
     desc: "Delete cluster"

@@ -2,6 +2,12 @@
 terraform {
   backend "kubernetes" {
     secret_suffix = "state"
-    config_path   = "/mnt/c/Users/devops/.kube/config"
+
+    // Warning: Variables, locals and functions may not be used here.
+    config_paths = [
+      "/mnt/c/Users/devops/.kube/config",
+      "c:\\Users\\devops\\.kube\\config"
+    ]
   }
 }
+
