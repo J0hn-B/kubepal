@@ -52,6 +52,6 @@ tasks:
     desc: "Delete cluster"
     cmds:
       - k3d cluster delete {{.CLUSTER_NAME}}
-      - rm -rf kube/bootstrap/.terraform
-      - rm -rf kube/bootstrap/.terraform.lock.hcl
+      - '{{if eq OS "linux"}}rm -rf kube/bootstrap/.terraf*{{end}}'
+      - '{{if eq OS "windows"}}powershell Remove-Item "kube\bootstrap\.terraf*" -Recurse -Force{{end}}'
     silent: true
