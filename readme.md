@@ -7,9 +7,9 @@ Designed to be used with both, WSL and Powershell simultaneously.
 
 - Setup consists of 2 main directories: `app` and `bootstrap`
 
-  - `kube/app` contains the kubernetes manifests for the apps/configs.
+  - `kube/app` contains the kubernetes manifests for the apps/configs (argocd apps, kubernetes manifests, etc)
 
-  - `kube/bootstrap` contains the terraform configuration to prepare the cluster.
+  - `kube/bootstrap` contains the terraform configuration to prepare the cluster (namespaces, helm charts, etc).
 
 1. From the project root directory, run [`task list`](./Taskfile.yaml) to see the available tasks. If on Powershell, `task list` will return the default kubeconfig path. If on WSL, `task create` will generate the export command for the kubeconfig path. Both cases will point to the same kubeconfig file, hosted by the windows host.
 
