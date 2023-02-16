@@ -6,7 +6,7 @@
 version: "3"
 
 env:
-  CLUSTER_NAME: pattern
+  CLUSTER_NAME: kubepal
   KUBE: export KUBECONFIG=/mnt/c/Users/{{.USER}}/.kube/config
 
 # Include the helper tasks
