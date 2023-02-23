@@ -5,20 +5,12 @@ Designed to be used with both, WSL and Powershell simultaneously.
 
 ## Getting started
 
-- Setup consists of 2 main directories: `app` and `bootstrap`
+- On [`Taskfile.yml`](./Taskfile.yaml), update the KUBE variable to match your WSL path to kubeconfig file on Windows host:
 
-  - `kube/app` contains the kubernetes manifests for the apps/configs (argocd apps, kubernetes manifests, etc)
+  ![image](https://user-images.githubusercontent.com/40946247/220986094-d73a105f-10de-4ceb-a1c5-a0a5f6c89871.png)
 
-  - `kube/bootstrap` contains the terraform configuration to prepare the cluster (namespaces, helm charts, etc).
+- Update the [`config_paths`](./kube/bootstrap/backend.tf) list to match your local `kubeconfig file` path:
 
-1. From the project root directory, run [`task list`](./Taskfile.yaml) to see the available tasks. If on Powershell, `task list` will return the default kubeconfig path. If on WSL, `task create` will generate the export command for the kubeconfig path. Both cases will point to the same kubeconfig file, hosted by the windows host.
+![image](https://user-images.githubusercontent.com/40946247/220987710-494c74ee-fc11-4b4d-bc3a-8873c7fc79bb.png)
 
-   > Your cluster must now be accessible from both WSL and Powershell, Try running `kubectl get namespaces` from both environments. and verify access to the k3d cluster.
-
-2. Navigate to the `kube/bootstrap` directory and update the `config_paths` values in [`backend.tf`](/kube/bootstrap/backend.tf) to match your environment.
-
-   > Both `config_paths` values must point to the same directory, and the directory must exist.
-
-3. Run `task deploy` to create, bootstrap the cluster with terraform and deploy the apps.
-
-4. Run `task delete` to destroy the cluster.
+- Run `task --list` on WSL or Powershell to see the available tasks and the updated `kubeconfig` path.
