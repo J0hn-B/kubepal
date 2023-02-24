@@ -33,3 +33,28 @@ env:
 ```
 
 - Run `task --list` on WSL or Powershell to see the available tasks and the updated `kubeconfig` path.
+
+```bash
+task: Available tasks for this project:
+* create:       Create and access a k3d cluster.
+
+If operating on WSL, the KUBECONFIG env var will point to the Windows host.
+
+
+
+Kubeconfig path: /mnt/c/Users/devops/.kube/config
+
+* delete:             Delete cluster
+* deploy:             Bootstrap cluster and deploy apps
+* tf_init:            Initialize terraform
+* run:clean:          Clean up /.kube/config
+* run:connect:        Get a shell to a running container
+* run:path:           Convert a string from / path format to \
+* run:start:          Go template if statement
+* run:temp_pod:       Create a temporary interactive pod, install some tools on it, and experiment
+* run:test:           Go template functions and examples using Powershell and Bash
+```
+
+- `task deploy` will perform all steps to create the cluster, deploy ArgoCD and deploy the apps.
+
+- `task delete` will delete the cluster.

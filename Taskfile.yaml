@@ -40,13 +40,6 @@ tasks:
       - terraform -chdir='{{fromSlash "kube/bootstrap"}}' init
     status: # If terraform is initialized, skip the task
       - terraform -chdir='{{fromSlash "kube/bootstrap"}}' state list
-
-  connect:
-    desc: "Connect to cluster"
-    cmds:
-      - task: port:argo
-    silent: true
-
   deploy:
     desc: "Bootstrap cluster and deploy apps"
     cmds:
