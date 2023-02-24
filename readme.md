@@ -3,14 +3,33 @@
 A local [`k3d`](https://k3d.io) cluster setup, ready to deploy your apps, prepackaged with a few useful tools.
 Designed to be used with both, WSL and Powershell simultaneously.
 
+- [Task](https://taskfile.dev/) used as a `make` alternative, supports Go templates and is cross-platform.
+
+- Terraform used to deploy the ArgoCD helm chart after the cluster is up and running.
+
+GitOps focused, will try to replicate an easy to use, temporary local cluster setup for development/testing purposes.
+
+The mix and match of tools being used is an attempt to make the setup as flexible as possible recording at the same time a useful set of code snippets for future reference.
+
 ## Getting started
 
-- On [`Taskfile.yml`](./Taskfile.yaml), update the KUBE variable to match your WSL path to kubeconfig file on Windows host:
+- On [`Taskfile.yml`](./Taskfile.yaml), update the KUBE variable ( if necessary ) to match your WSL path to kubeconfig file on Windows host:
 
-  ![image](https://user-images.githubusercontent.com/40946247/220986094-d73a105f-10de-4ceb-a1c5-a0a5f6c89871.png)
+```yml
+env:
+  CLUSTER_NAME: kubepal
+  KUBE: export KUBECONFIG=/mnt/c/Users/{{.USER}}/.kube/config # WSL path to kubeconfig file on Windows host
+```
 
 - Update the [`config_paths`](./kube/bootstrap/backend.tf) list to match your local `kubeconfig file` path:
 
-![image](https://user-images.githubusercontent.com/40946247/220987710-494c74ee-fc11-4b4d-bc3a-8873c7fc79bb.png)
+```hcl
+    // Warning: Variables, locals and functions may not be used here.
+
+    config_paths = [
+      "/mnt/c/Users/devops/.kube/config",
+      "c:\\Users\\devops\\.kube\\config"
+    ]
+```
 
 - Run `task --list` on WSL or Powershell to see the available tasks and the updated `kubeconfig` path.
