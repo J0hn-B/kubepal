@@ -1,6 +1,6 @@
 # Kubepal
 
-A local [`k3d`](https://k3d.io) cluster setup, ready to deploy your apps, prepackaged with a few useful tools.
+A local [`k3d`](https://k3d.io) cluster setup, ready to deploy your apps, pre-packaged with a few useful tools.
 Designed to be used with both, WSL and Powershell simultaneously.
 
 - [Task](https://taskfile.dev/) used as a `make` alternative, supports Go templates and is cross-platform.
@@ -9,7 +9,7 @@ Designed to be used with both, WSL and Powershell simultaneously.
 
 GitOps focused, will try to replicate an easy to use, temporary local cluster setup for development/testing purposes.
 
-The mix and match of tools being used is an attempt to make the setup as flexible as possible recording at the same time a useful set of code snippets for future reference.
+A tools and code snippets collection for future reference.
 
 ## Getting started
 
