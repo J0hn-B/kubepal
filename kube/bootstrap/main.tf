@@ -9,14 +9,14 @@ resource "helm_release" "argocd" {
 
   // read values from file
   values = [
-    file("${path.module}/argocd_chart_values.yml")
+    file("${path.module}./base/argocd_chart_values.yml")
   ]
 }
 
 // Create an ArgoCd Ingress
 resource "kubernetes_manifest" "argocd_ingress" {
   manifest = yamldecode(
-    file("${path.module}/argocd_ingress.yml")
+    file("${path.module}./base/argocd_ingress.yml")
   )
   depends_on = [
     helm_release.argocd
