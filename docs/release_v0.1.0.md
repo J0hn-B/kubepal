@@ -1,4 +1,4 @@
-# Focus
+#
 
 This release focuses on Taskfile tasks and Go templating examples in tasks.
 
