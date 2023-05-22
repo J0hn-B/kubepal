@@ -1,21 +1,24 @@
 version: "3"
 
 env:
-  POD_NAME: kubepal
+  POD_NAME: kubepal-tester
 
 tasks:
   pod:
     desc: "Create a temporary interactive pod, install some tools on it, and experiment "
     cmds:
       - kubectl run -i --tty {{.POD_NAME}} --image debian
+    status:
+      - kubectl get pods {{.POD_NAME}} # If pod exists, skip the task
 
   connect:
     desc: "Get a shell to a running container"
     cmds:
+      - task: pod
       - kubectl exec --stdin --tty {{.POD_NAME}} -- /bin/bash
 
   test:
-    desc: "Go template functions and examples using Powershell and Bash"
+    desc: "Go template functions examples using Powershell and Bash"
     cmds:
       - '{{if eq OS "windows"}}powershell "Get-ComputerInfo | select WindowsProductName"{{else}}cat /etc/os-release{{end}}'
 
@@ -23,8 +26,11 @@ tasks:
     silent: true
 
   start:
-    desc: "Go template if statement"
+    desc: "Start Docker Desktop on Windows"
     cmds:
       # Run a command if OS is windows
       - '{{if eq OS "windows"}}powershell Start-Process "\"C:\ProgramData\Microsoft\Windows\Start Menu\Docker Desktop"\"{{end}}'
+
+      # If OS is linux, echo a message
+      - '{{if eq OS "linux"}}echo "This is a Windows only command"{{end}}'
     silent: true

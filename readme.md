@@ -12,6 +12,6 @@ Key features:
 
 Releases:
 
-- Each release represents a snapshot of tools and their configurations.
+- Each release represents a snapshot of tools and their configurations as described in the release docs "Focus" section.
 
-- [x] [v0.1.0](/docs/release_v0.1.0.md)
+  - [x] [v0.1.0](/docs/release_v0.1.0.md)

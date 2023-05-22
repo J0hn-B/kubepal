@@ -1,4 +1,8 @@
-# Features and Tools
+# Focus
+
+This release focuses on Taskfile tasks and Go templating examples in tasks.
+
+## Features and Tools
 
 - `[Task](https://taskfile.dev/):` a cross-platform alternative to Make, supporting and showcasing `Go templates`.
 
@@ -40,17 +44,16 @@
 
    ```shell
    $ task
-   Available tasks for this project:
+   task: Available tasks for this project:
+
    * create:       Create and access a k3d cluster.
-   * delete:       Delete the cluster.
-   * deploy:       Bootstrap the cluster and deploy apps.
-   * tf_init:      Initialize Terraform.
-   * run:clean:    Clean up /.kube/config.
-   * run:connect:  Get a shell to a running container.
-   * run:path:     Convert a string from / path format to \.
-   * run:start:    Go template if statement.
-   * run:temp_pod: Create a temporary interactive pod, install some tools on it, and experiment.
-   * run:test:     Go template functions and examples using PowerShell and Bash.
+   * delete:            Delete cluster
+   * deploy:            Bootstrap cluster and deploy apps
+   * tf_init:           Initialize terraform
+   * run:connect:       Get a shell to a running container
+   * run:pod:           Create a temporary interactive pod, install some tools on it, and experiment
+   * run:start:         Go template if statement
+   * run:test:          Go template functions and examples using Powershell and Bash
    ```
 
 4. The `task deploy` command will create the cluster, deploy ArgoCD, and deploy the apps.
