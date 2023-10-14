@@ -364,7 +364,7 @@ configs:
     #   githubAppInstallationID: 2
     #   githubAppEnterpriseBaseUrl: https://ghe.example.com/api/v3
     #   githubAppPrivateKey: |
-    #     -----BEGIN OPENSSH PRIVATE KEY-----
+    #     -----BEGIN OPENSSH PRIVATE KEY-----  #gitleaks:allow
     #     ...
     #     -----END OPENSSH PRIVATE KEY-----
     # https-creds:

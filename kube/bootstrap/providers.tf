@@ -1,6 +1,18 @@
 // Extract the config_path values from the backend.tf file
 // and use it to configure the kubernetes provider
 // and the helm provider
+terraform {
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.0"
+    }
+  }
+}
 
 locals {
 
@@ -28,4 +40,5 @@ provider "helm" {
     ]
   }
 }
+
 

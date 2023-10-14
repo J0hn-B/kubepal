@@ -1,0 +1,21 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+permissions: read-all
+
+jobs:
+  lint:
+    # Run GH Super-Linter against code base
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: cat .github/super-linter.env >> "$GITHUB_ENV"
+      - name: Lint Code Base
+        uses: super-linter/super-linter/slim@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main

@@ -9,9 +9,9 @@ env:
   CLUSTER_NAME: kubepal
   KUBE: export KUBECONFIG=/mnt/c/Users/{{.USER}}/.kube/config # WSL path to kubeconfig file on Windows host
 
-# Include the helper tasks
+# Include the github actions tasks
 includes:
-  run: utils/helper_tasks.yml
+  run: .github/Taskfile.yml
 
 tasks:
   create:
@@ -25,8 +25,13 @@ tasks:
       {{ if and (eq OS "linux") (ne (env "KUBECONFIG") "") }}Kubeconfig path: {{(env "KUBECONFIG")}}{{end}}
 
     cmds:
+      # Source the server.sh script to start docker
+      - '{{if eq OS "linux"}}source .github/scripts/server.sh{{end}}'
+
       # If KUBECONFIG env var is not set, set it to point to the Windows host
-      - '{{if eq OS "linux"}}[ -z "$KUBECONFIG" ] && echo "Set KUBECONFIG env var ==> {{.KUBE}}" && exit 1 || k3d cluster create {{.CLUSTER_NAME}} --api-port 6443 -p 8080:80@loadbalancer --agents 2{{end}}'
+      - '{{if eq OS "linux"}}[ -z "$KUBECONFIG" ] && echo "Set KUBECONFIG env var ==> {{.KUBE}}" && exit 1 \
+        || k3d cluster create {{.CLUSTER_NAME}} --api-port 6443 -p 8080:80@loadbalancer --agents 2{{end}}'
+
       # If host is Windows, create cluster
       - '{{if eq OS "windows"}}k3d cluster create {{.CLUSTER_NAME}} --api-port 6443 -p 8080:80@loadbalancer --agents 2{{end}}'
 
