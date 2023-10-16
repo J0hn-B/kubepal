@@ -25,16 +25,13 @@ tasks:
       {{ if and (eq OS "linux") (ne (env "KUBECONFIG") "") }}Kubeconfig path: {{(env "KUBECONFIG")}}{{end}}
 
     cmds:
-      # Source the server.sh script to start docker
-      - '{{if eq OS "linux"}}source .github/scripts/server.sh{{end}}'
+      - '{{if eq OS "linux"}}source .github/scripts/server.sh{{end}}' # Source the server.sh script to start docker
 
-      # If KUBECONFIG env var is not set, set it to point to the Windows host
-      - '{{if eq OS "linux"}}[ -z "$KUBECONFIG" ] && echo "Set KUBECONFIG env var ==> {{.KUBE}}" && exit 1 \
-        || k3d cluster create {{.CLUSTER_NAME}} --api-port 6443 -p 8080:80@loadbalancer --agents 2{{end}}'
+      # If KUBECONFIG env var is not set, set it to point to the Windows host (or the host where the kubeconfig file is located)
+      - '{{if eq OS "linux"}}[ -z "$KUBECONFIG" ] && echo "Set KUBECONFIG env var ==> {{.KUBE}}" \
+        && exit 1 || k3d cluster create {{.CLUSTER_NAME}} --api-port 6443 -p 8080:80@loadbalancer --agents 2{{end}}'
 
-      # If host is Windows, create cluster
-      - '{{if eq OS "windows"}}k3d cluster create {{.CLUSTER_NAME}} --api-port 6443 -p 8080:80@loadbalancer --agents 2{{end}}'
-
+      - '{{if eq OS "windows"}}k3d cluster create {{.CLUSTER_NAME}} --api-port 6443 -p 8080:80@loadbalancer --agents 2{{end}}' # If host is Windows, create cluster
     status:
       - k3d cluster list {{.CLUSTER_NAME}} # If cluster exists, skip the task
     silent: true
@@ -51,6 +48,7 @@ tasks:
     cmds:
       - task: create
       - task: tf_init
+      - terraform -chdir='{{fromSlash "kube/bootstrap"}}' test
       - terraform -chdir='{{fromSlash "kube/bootstrap"}}' apply -auto-approve
 
   delete:
