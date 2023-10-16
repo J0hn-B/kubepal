@@ -58,3 +58,11 @@ tasks:
       - '{{if eq OS "linux"}}rm -rf kube/bootstrap/.terraf*{{end}}'
       - '{{if eq OS "windows"}}powershell Remove-Item "kube\bootstrap\.terraf*" -Recurse -Force{{end}}'
     silent: true
+
+  test:
+    desc: "Run static tests"
+    cmds:
+      - task: run:lint
+      - task: run:trivy
+      - task: run:checkov
+      - task: run:diff

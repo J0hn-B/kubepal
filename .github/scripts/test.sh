@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This script is used to hold all testing/linting functions for the project
+
 set -e
 
 # # Create a bash function to run super-linter
@@ -38,4 +40,10 @@ function trivy() {
         -v "$PWD":/tmp/lint --workdir /tmp/lint \
         aquasec/trivy:latest \
         fs --scanners vuln,config,secret .
+}
+
+# # Create a bash function return the names of all the changed files
+function get_changed_files() {
+    # Get the list of changed files
+    git --no-pager diff --stat
 }

@@ -40,4 +40,3 @@ run "argocd_ingress" {
   }
 
 }
-

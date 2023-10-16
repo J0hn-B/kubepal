@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This script is used to start all components needed to run locally.
+
 set -e
 
 # # #  WSL  # # #

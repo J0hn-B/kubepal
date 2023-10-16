@@ -21,3 +21,10 @@ tasks:
     desc: "Trivy security scanner"
     cmds:
       - source .github/scripts/test.sh && trivy
+
+  # # Show changed files (local)
+  diff:
+    desc: "Git diff to return changed files"
+    cmds:
+      - source .github/scripts/test.sh && get_changed_files
+    silent: true
