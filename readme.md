@@ -4,14 +4,71 @@
 
 Key features:
 
-- ✅ Disposable and Quick-to-Use: Create and delete the cluster set up with a single command.
+- ✅ Disposable and Quick-to-Use: Create and delete the cluster set up with a single command
 
-- ✅ GitOps Ready: Replicate GitOps practices in a local environment.
+- ✅ GitOps Ready: Replicate GitOps practices in a local environment using ArgoCD
 
-- ✅ Testing Ground for Tools: Explore and experiment with various tools and their configurations.
+- ✅ Modular: Each directory is a self-contained module that can be used independently
 
-Releases:
+## Prerequisites
 
-- Each release represents a snapshot of tools and their configurations as described in the release docs "Focus" section.
+- [Task](https://taskfile.dev/#/installation) | [Docker](https://www.docker.com/products/docker-desktop) | [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) | [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
-  - [x] [v0.1.0](/docs/release_v0.1.0.md)
+## Getting started
+
+```shell
+# Clone the repo
+git clone https://github.com/J0hn-B/kubepal.git
+
+# Change to the kubepal directory
+cd kubepal
+
+# List all available tasks
+task --list
+```
+
+[Configure Kubepal to use the local kubeconfig file](/docs/kubepal_start_here.md)
+
+---
+
+```shell
+# create cluster deploy helm charts using terraform
+task deploy
+
+# delete cluster
+task delete
+```
+
+---
+
+```shell
+# $ task
+
+task: Available tasks for this project:
+
+* create:       Create and access a k3d cluster.
+
+If operating on WSL, the KUBECONFIG env var will point to the Windows host.
+
+Kubeconfig path: /mnt/c/Users/devops/.kube/config
+
+* delete:               Delete cluster
+* deploy:               Bootstrap cluster and deploy apps
+* test:                 Run static tests
+* tf_init:              Initialize terraform
+* run:checkov:          Checkov, find cloud infra misconfigurations
+* run:diff:             Git diff to return changed files
+* run:kube_scape:       Kubescape security platform
+* run:lint:             GitHub Super-Linter
+* run:trivy:            Trivy security scanner
+```
+
+---
+
+- [kubepal overview](/docs/kubepal_structure.md)
+
+---
+
+- Notes:
+
+  - [Terraform Kubernetes Manifest Limitations](/docs/terraform_kubernetes_manifest.md)
