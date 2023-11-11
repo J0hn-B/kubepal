@@ -39,23 +39,23 @@ tasks:
   tf_init:
     desc: "Initialize terraform"
     cmds:
-      - terraform -chdir='{{fromSlash "kube/bootstrap"}}' init
+      - terraform -chdir='{{fromSlash "kube/minik8s"}}' init
     status: # If terraform is initialized, skip the task
-      - terraform -chdir='{{fromSlash "kube/bootstrap"}}' state list
+      - terraform -chdir='{{fromSlash "kube/minik8s"}}' state list
 
   deploy:
     desc: "Bootstrap cluster and deploy apps"
     cmds:
       - task: create
       - task: tf_init
-      - terraform -chdir='{{fromSlash "kube/bootstrap"}}' test
-      - terraform -chdir='{{fromSlash "kube/bootstrap"}}' apply -auto-approve
+      - terraform -chdir='{{fromSlash "kube/minik8s"}}' test
+      - terraform -chdir='{{fromSlash "kube/minik8s"}}' apply -auto-approve
 
   delete:
     desc: "Delete cluster"
     cmds:
       - k3d cluster delete {{.CLUSTER_NAME}}
-      - '{{if eq OS "linux"}}rm -rf kube/bootstrap/.terraf*{{end}}'
+      - '{{if eq OS "linux"}}rm -rf kube/minik8s/.terraf*{{end}}'
       - '{{if eq OS "windows"}}powershell Remove-Item "kube\bootstrap\.terraf*" -Recurse -Force{{end}}'
     silent: true
 

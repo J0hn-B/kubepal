@@ -1,7 +1,7 @@
 version: "3"
 
 tasks:
-  # # Lind and test (local)
+  # # Scan with GH Super-Linter slim (local)
 
   lint: # https://github.com/super-linter/super-linter
     desc: "GitHub Super-Linter"
@@ -28,3 +28,9 @@ tasks:
     cmds:
       - source .github/scripts/test.sh && get_changed_files
     silent: true
+
+  # # Scan with Kubescape (local)
+  kube_scape:
+    desc: "Kubescape security platform"
+    cmds:
+      - source .github/scripts/test.sh && kube_scape

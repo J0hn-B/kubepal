@@ -7,10 +7,6 @@ output "terraform_providers_path" {
 output "argocd_secret" {
   value       = data.kubernetes_secret_v1.argocd_secret.data.password != "" ? nonsensitive(data.kubernetes_secret_v1.argocd_secret.data.password) : "No password found"
   description = "Login --> username: admin --> password:"
-
-  depends_on = [
-    kubernetes_manifest.argocd_ingress
-  ]
 }
 
 // Access argocd web ui

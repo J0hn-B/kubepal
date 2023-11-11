@@ -34,11 +34,13 @@ provider "kubernetes" {
 
 # Configure Helm provider
 provider "helm" {
+  experiments {
+    manifest = true
+  }
   kubernetes {
     config_paths = [
       local.kube_config_path
     ]
   }
 }
-
 
