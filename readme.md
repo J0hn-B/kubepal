@@ -4,11 +4,11 @@
 
 Key features:
 
-- ✅ Disposable and Quick-to-Use: Create and delete the cluster set up with a single command
+- Disposable and Quick-to-Use: Create and delete the cluster set up with a single command
 
-- ✅ GitOps Ready: Replicate GitOps practices in a local environment using ArgoCD
+- GitOps Ready: Replicate GitOps practices in a local environment using ArgoCD
 
-- ✅ Modular: Each directory is a self-contained module that can be used independently
+- Modular: Each directory is a self-contained module that can be used independently
 
 ## Prerequisites
 
@@ -38,13 +38,17 @@ task deploy
 # delete cluster
 task delete
 ```
-
 ---
 
-```shell
-# $ task
+<!-- markdownlint-disable -->
+<details>
 
-task: Available tasks for this project:
+<summary>Available tasks for this project</summary>
+<!-- markdownlint-enable -->
+
+```shell
+$ task --list
+
 
 * create:       Create and access a k3d cluster.
 
@@ -61,7 +65,10 @@ Kubeconfig path: /mnt/c/Users/devops/.kube/config
 * run:kube_scape:       Kubescape security platform
 * run:lint:             GitHub Super-Linter
 * run:trivy:            Trivy security scanner
+
 ```
+
+</details>
 
 ---
 
