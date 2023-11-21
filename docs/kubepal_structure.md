@@ -9,8 +9,8 @@ kubepal
 `-- kube
     |-- argocd
     |-- base
-    `-- minik8s
-        `-- tests
+    |-- minik8s
+
 
 ```
 
