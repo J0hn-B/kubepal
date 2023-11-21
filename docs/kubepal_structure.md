@@ -11,7 +11,6 @@ kubepal
     |-- base
     |-- minik8s
 
-
 ```
 
 ---

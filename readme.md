@@ -38,7 +38,6 @@ task deploy
 # delete cluster
 task delete
 ```
-
 ---
 
 <!-- markdownlint-disable -->
@@ -49,6 +48,7 @@ task delete
 
 ```shell
 $ task --list
+
 
 * create:       Create and access a k3d cluster.
 
