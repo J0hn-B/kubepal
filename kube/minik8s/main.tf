@@ -7,6 +7,7 @@ resource "helm_release" "argocd" {
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
   cleanup_on_fail  = true
+  version          = "5.51.4"
 
   // https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
 
