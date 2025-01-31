@@ -7,7 +7,7 @@ resource "helm_release" "argocd" {
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
   cleanup_on_fail  = true
-  version          = "5.51.4"
+  version          = "7.7.22"
 
   // https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
 
@@ -41,16 +41,22 @@ resource "helm_release" "argocd" {
     value = true
   }
 
-  # List of ingress hosts
-  set_list {
-    name  = "server.ingress.hosts"
-    value = ["localhost"]
+  # Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
+  set {
+    name  = "server.ingress.controller"
+    value = "generic"
   }
 
-  # List of ingress paths
-  set_list {
-    name  = "server.ingress.paths"
-    value = ["/argocd"]
+  # Argo CD server hostname
+  set {
+    name  = "server.ingress.hostname"
+    value = "localhost"
+  }
+
+  # Argo CD server path
+  set {
+    name  = "server.ingress.path"
+    value = "/argocd"
   }
 
 }
